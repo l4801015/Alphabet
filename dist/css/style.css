@@ -1,0 +1,14 @@
+body {
+    display: flex;
+    justify-content: center;
+}
+div {
+    padding: .6em;
+    color: #363945;
+    font: 1.2em "Fira Sans", sans-serif;
+}
+div:hover {
+    color: #fff;
+    background-color: #363945;
+    box-shadow: .2em .2em .2em #363945;
+}

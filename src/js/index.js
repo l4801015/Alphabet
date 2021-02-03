@@ -31,6 +31,73 @@ check = (current, input) => {
     }
 }
 
+create = () => document.createElement("div");
+
+clickify = (element, name) => {
+    element.onclick = () => {
+        if (check(document.body.className, name).next == false) return;
+        document.body.className = check(document.body.className, name).next;
+    }
+    return element;
+}
+
+classify = (element, name) => {
+    element.className = name;
+    return element;
+}
+
+fill = (element, content) => {
+    element.innerHTML = content.toUpperCase() + " "  + content;
+    return element;
+}
+
+append = (element, root) => {
+    if (root == undefined) return document.body.appendChild(element);
+    root.appendChild(element);
+}
+
+
+render = (alphabet, counter) => {
+    if (counter == alphabet.length) return;
+    append(
+
+        fill(
+
+            classify(
+
+                clickify(
+                    create(), alphabet[counter]
+                ), alphabet[counter]
+            ),
+            alphabet[counter]
+        )
+
+    );
+    return render(alphabet, counter + 1);
+}
+
+window.onload = () => document.body.className = current(alphabet);
+render(alphabet, alphabet.length - alphabet.length);
+
+fillFinder = (element, content) => {
+    element.innerHTML = content;
+    return element;
+}
+
+append(
+
+    fillFinder(
+
+        classify(
+
+            create(), "finder"
+        ),
+        "Find" + ":" + " " + document.body.className
+    )
+
+);
+
+
 // iterate = (quantity, range) => {
 //     if (quantity == 0) return;
 //     console.log(
@@ -40,34 +107,3 @@ check = (current, input) => {
 // }
 
 // iterate(100);
-
-create = () => document.createElement("div");
-
-classify = (element, name) => {
-    element.className = name;
-    return element;
-}
-
-fill = (element, content) => {
-    element.innerHTML = content;
-    return element;
-}
-
-append = element => document.body.appendChild(element)
-
-
-render = (alphabet, counter) => {
-    if (counter == alphabet.length) return;
-    append(
-        fill(
-            classify(
-                create(), alphabet[counter]
-            ),
-            alphabet[counter]
-        )
-
-    );
-    return render(alphabet, counter + 1);
-}
-
-render(alphabet, alphabet.length - alphabet.length);
