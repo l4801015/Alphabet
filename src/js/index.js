@@ -1,22 +1,26 @@
 let alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 
-log = param => console.log(param);
-random = (alphabet) => alphabet[Math.floor(Math.random() * (alphabet.length - 0) + 0)];
 
-current = (alphabet) => {
+
+let log = param => console.log(param);
+let random = (alphabet) => alphabet[Math.floor(Math.random() * (alphabet.length - 0) + 0)];
+
+let map = letter => require('../assets/sounds/' + letter + '.mp3');
+
+let current = (alphabet) => {
     if (alphabet.length == 0) return "alphabet is empty";
     return random(alphabet);
 }
 
-input = (alphabet) => {
+let input = (alphabet) => {
     if (alphabet.length == 0) return "input is empty";
     return random(alphabet);
 }
 
-next = () => current(alphabet);
+let next = () => current(alphabet);
 
 
-check = (current, input) => {
+let check = (current, input) => {
     if (current == input) return {
         check: true,
         current: current,
@@ -31,46 +35,55 @@ check = (current, input) => {
     }
 }
 
-fillFinder = (element, content) => {
+let fillFinder = (element, content) => {
     element.innerHTML = "Find:" + " " + content.toUpperCase();
     return element;
 }
 
-create = () => document.createElement("div");
+let create = () => document.createElement("div");
 
-classify = (element, name) => {
+let classify = (element, name) => {
     element.className = name;
     return element;
 }
 
-fill = (element, content) => {
+let fill = (element, content) => {
     element.innerHTML = content.toUpperCase() + "  " + content;
     return element;
 }
 
-append = (element, root) => {
+let append = (element, root) => {
     if (root == undefined) return document.body.appendChild(element);
     root.appendChild(element);
 }
 
-clickify = (element, name) => {
+let clickify = (element, name) => {
     element.onclick = () => {
         if (check(document.body.className, name).next == false) return;
         document.body.className = check(document.body.className, name).next;
+        log(
+            document.getElementsByClassName("audio" + "-" + document.body.className)[0]
+        )
         document.body.removeChild(document.getElementsByClassName("finder")[0]);
         document.body.appendChild(
             fillFinder(classify(create(), "finder"), document.body.className)
         );
+        // document.body.appendChild(
+        //     new Audio(map(document.body.className).default)
+        // );
+
     }
     return element;
 }
 
-render = (alphabet, counter) => {
+let render = (alphabet, counter) => {
     if (counter == alphabet.length) return window.onload = () => {
         document.body.className = current(alphabet);
         document.body.appendChild(
             fillFinder(classify(create(), "finder"), document.body.className)
         );
+        document.body.appendChild(new Audio(map(document.body.className).default));
+        document.body.getElementsByTagName("audio")[0].className = "audio" + "-" + document.body.className;
     }
     append(
 
@@ -97,7 +110,7 @@ render = (alphabet, counter) => {
 
 
 
-
+// console.log(new img());
 render(alphabet, alphabet.length - alphabet.length);
 
 
