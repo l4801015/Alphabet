@@ -1,13 +1,15 @@
 body {
-    background-color: gray;
+    /* background-color: gray; */
+    width: 60%;
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
 }
 div {
     padding: .6em;
-    margin: .1em;
+    margin: .3em;
     color: #363945;
-    font: 1.2em "Fira Sans", sans-serif;
+    font: 1.8em "Fira Sans", sans-serif;
 }
 div:hover {
     color: #fff;
@@ -22,4 +24,12 @@ div.finder {
     color: #fff;
     box-shadow: .2em .2em .2em #363945;
     border-radius: .2em;
+}
+.wrong {
+    display: inline-block;
+    background-color: red;
+}
+.right {
+    display: inline-block;
+    background-color: green;
 }

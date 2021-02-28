@@ -36,7 +36,7 @@ let check = (current, input) => {
 }
 
 let fillFinder = (element, content) => {
-    element.innerHTML = "Find:" + " " + content.toUpperCase();
+    element.innerHTML = "Find".toUpperCase() //:" + " " + content.toUpperCase();
     return element;
 }
 
@@ -59,19 +59,36 @@ let append = (element, root) => {
 
 let clickify = (element, name) => {
     element.onclick = () => {
-        if (check(document.body.className, name).next == false) return;
-        document.body.className = check(document.body.className, name).next;
-        log(
-            document.getElementsByClassName("audio" + "-" + document.body.className)[0]
-        )
-        document.body.removeChild(document.getElementsByClassName("finder")[0]);
-        document.body.appendChild(
-            fillFinder(classify(create(), "finder"), document.body.className)
-        );
-        // document.body.appendChild(
-        //     new Audio(map(document.body.className).default)
-        // );
+        if (check(document.body.className, name).next == false) {
 
+            log(
+                document.body.appendChild(
+                    classify(
+                        create(), "wrong"
+                    ),
+                    "you are wrong"
+                )
+            )
+
+            return;
+        };
+        document.body.removeChild(document.getElementsByClassName("audio" + "-" + document.body.className)[0]);
+        document.body.className = check(document.body.className, name).next;
+        document.body.removeChild(document.getElementsByClassName("finder")[0]);
+        document.body.appendChild(fillFinder(classify(create(), "finder"), document.body.className));
+        document.body.appendChild(new Audio(map(document.body.className).default));
+        document.body.getElementsByTagName("audio")[0].className = "audio" + "-" + document.body.className;
+        log(
+            document.body.appendChild(
+                classify(
+                    create(), "right"
+                ),
+                "you are right"
+            )
+        )
+        document.body.getElementsByClassName("finder")[0].onclick = () => {
+            document.body.getElementsByClassName("audio" + "-" + document.body.className)[0].play()
+        }
     }
     return element;
 }
@@ -84,20 +101,19 @@ let render = (alphabet, counter) => {
         );
         document.body.appendChild(new Audio(map(document.body.className).default));
         document.body.getElementsByTagName("audio")[0].className = "audio" + "-" + document.body.className;
+
+        document.body.getElementsByClassName("finder")[0].onclick = () => {
+            document.body.getElementsByClassName("audio" + "-" + document.body.className)[0].play()
+        }
     }
     append(
-
         fill(
-
             classify(
-
                 clickify(
-                    create(), alphabet[counter]
-                ), alphabet[counter]
-            ),
-            alphabet[counter]
-        )
-
+                    create(),
+                    alphabet[counter]),
+                alphabet[counter]),
+            alphabet[counter])
     );
     return render(alphabet, counter + 1);
 }
